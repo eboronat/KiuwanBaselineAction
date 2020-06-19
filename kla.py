@@ -75,7 +75,8 @@ def getBLAnalysisResultsURL(a_c, kla_user=PARAM_KLA_USERNAME, kla_password=PARAM
     apicall = apicall + "/apps/analysis/" + a_c
     print('Calling REST API [', apicall, '] ...')
 
-    authString = base64.b64encode(kla_user + ':' + kla_password)
+    kla_password = kla_password.decode('string_escape')
+    authString = base64.encodebytes(('%s:%s' % (kla_user,kla_password)).encode()).decode().strip()
     
     if "domain-id" in advanced:
       posDomain = advanced.find("domain-id")
